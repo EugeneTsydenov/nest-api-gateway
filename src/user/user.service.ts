@@ -10,11 +10,13 @@ import {
 } from './types/service';
 import { UserRepository } from './user.repository';
 import {
+  RequestUpdatePassword,
   RequestUpdateUser,
   ResponseDeleteUser,
   ResponseGetUser,
   ResponseLogin,
   ResponseRegister,
+  ResponseUpdatePassword,
 } from './types/grpc';
 
 @Injectable()
@@ -77,5 +79,11 @@ export class UserService implements IUserService {
         return response;
       }),
     );
+  }
+
+  updatePassword(
+    data: RequestUpdatePassword,
+  ): Observable<ResponseUpdatePassword> {
+    return this.userRepository.updatePassword(data);
   }
 }

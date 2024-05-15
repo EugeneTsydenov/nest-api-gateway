@@ -3,11 +3,13 @@ import {
   IUserGrpcService,
   RequestLogin,
   RequestRegister,
+  RequestUpdatePassword,
   RequestUpdateUser,
   ResponseDeleteUser,
   ResponseGetUser,
   ResponseLogin,
   ResponseRegister,
+  ResponseUpdatePassword,
   ResponseUpdateUser,
 } from './types/grpc';
 import { ClientGrpc } from '@nestjs/microservices';
@@ -43,5 +45,11 @@ export class UserRepository implements OnModuleInit, IUserRepository {
 
   updateUser(data: RequestUpdateUser): Observable<ResponseUpdateUser> {
     return this.userGrpcService.updateUser(data);
+  }
+
+  updatePassword(
+    data: RequestUpdatePassword,
+  ): Observable<ResponseUpdatePassword> {
+    return this.userGrpcService.updatePassword(data);
   }
 }

@@ -8,6 +8,9 @@ export interface IUserGrpcService {
   register(data: RequestRegister): Observable<ResponseRegister>;
   deleteUser(withId: RequestDeleteUser): Observable<ResponseDeleteUser>;
   updateUser(data: RequestUpdateUser): Observable<ResponseUpdateUser>;
+  updatePassword(
+    data: RequestUpdatePassword,
+  ): Observable<ResponseUpdatePassword>;
 }
 
 export interface ResponseGetUser {
@@ -62,6 +65,19 @@ export interface RequestUpdateUser {
 
 export interface ResponseUpdateUser {
   updatedUserData: UserEntity;
+  code: number;
+  message: string;
+}
+
+export interface RequestUpdatePassword {
+  id: number;
+  passwords: {
+    old: string;
+    new: string;
+  };
+}
+
+export interface ResponseUpdatePassword {
   code: number;
   message: string;
 }

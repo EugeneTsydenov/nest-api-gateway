@@ -59,4 +59,12 @@ export class UserController {
         .json({ message: res.message, updatedUserData: res.updatedUserData });
     });
   }
+
+  @Put('update/password')
+  updatePassword(@Req() req: Request, @Res() response: Response) {
+    const data = req.body;
+    this.userService.updatePassword(data).subscribe((res) => {
+      response.status(res.code).json({ message: res.message });
+    });
+  }
 }
