@@ -6,9 +6,11 @@ import {
   IUserService,
   ResponseObservableGetUser,
   ResponseObservableLogin,
+  ResponseObservableUpdateUser,
 } from './types/service';
 import { UserRepository } from './user.repository';
 import {
+  RequestUpdateUser,
   ResponseDeleteUser,
   ResponseGetUser,
   ResponseLogin,
@@ -58,5 +60,22 @@ export class UserService implements IUserService {
 
   deleteUser(id: number): Observable<ResponseDeleteUser> {
     return this.userRepository.deleteUser(id);
+  }
+
+  updateUser(data: RequestUpdateUser): ResponseObservableUpdateUser {
+    return this.userRepository.updateUser(data).pipe(
+      map((response) => {
+        if (response.code === 200) {
+          const userDto = new UserDto(response.updatedUserData);
+          return {
+            message: response.message,
+            code: response.code,
+            updatedUserData: userDto,
+          };
+        }
+
+        return response;
+      }),
+    );
   }
 }

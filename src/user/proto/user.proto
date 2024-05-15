@@ -23,6 +23,11 @@ message UserData {
   google.protobuf.Timestamp created_at = 4;
 }
 
+message UpdatedField {
+  string username = 2;
+  string avatar = 3;
+}
+
 message GetUserResponse {
   UserData userData = 1;
   int32 code = 2;
@@ -52,8 +57,7 @@ message LoginResponse {
 
 message UpdateUserRequest {
   int64 id = 1;
-  string username = 2;
-  string avatar = 3;
+  UpdatedField updatedField = 4;
 }
 
 message UpdateUserResponse {
