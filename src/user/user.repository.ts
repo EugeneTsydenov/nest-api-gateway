@@ -1,9 +1,9 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import {
   IUserGrpcService,
-  RequestGetUser,
   RequestLogin,
   RequestRegister,
+  ResponseDeleteUser,
   ResponseGetUser,
   ResponseLogin,
   ResponseRegister,
@@ -23,8 +23,8 @@ export class UserRepository implements OnModuleInit, IUserRepository {
       this.client.getService<IUserGrpcService>('UserService');
   }
 
-  getUser(withId: RequestGetUser): Observable<ResponseGetUser> {
-    return this.userGrpcService.getUser(withId);
+  getUser(id: number): Observable<ResponseGetUser> {
+    return this.userGrpcService.getUser({ id });
   }
 
   login(data: RequestLogin): Observable<ResponseLogin> {
@@ -33,5 +33,9 @@ export class UserRepository implements OnModuleInit, IUserRepository {
 
   register(data: RequestRegister): Observable<ResponseRegister> {
     return this.userGrpcService.register(data);
+  }
+
+  deleteUser(id: number): Observable<ResponseDeleteUser> {
+    return this.userGrpcService.deleteUser({ id });
   }
 }

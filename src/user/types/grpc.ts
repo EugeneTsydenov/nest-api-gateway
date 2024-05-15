@@ -6,6 +6,7 @@ export interface IUserGrpcService {
   getUser(withId: RequestGetUser): Observable<ResponseGetUser>;
   login(data: RequestLogin): Observable<ResponseLogin>;
   register(data: RequestRegister): Observable<ResponseRegister>;
+  deleteUser(withId: RequestDeleteUser): Observable<ResponseDeleteUser>;
 }
 
 export interface ResponseGetUser {
@@ -37,4 +38,13 @@ export interface RequestRegister {
 export interface ResponseRegister {
   message: string;
   code: number;
+}
+
+export interface RequestDeleteUser {
+  id: number;
+}
+
+export interface ResponseDeleteUser {
+  code: number;
+  message: string;
 }

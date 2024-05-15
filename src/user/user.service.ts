@@ -8,14 +8,19 @@ import {
   ResponseObservableLogin,
 } from './types/service';
 import { UserRepository } from './user.repository';
-import { ResponseGetUser, ResponseLogin, ResponseRegister } from './types/grpc';
+import {
+  ResponseDeleteUser,
+  ResponseGetUser,
+  ResponseLogin,
+  ResponseRegister,
+} from './types/grpc';
 
 @Injectable()
 export class UserService implements IUserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   getUser(id: number): ResponseObservableGetUser {
-    return this.userRepository.getUser({ id }).pipe(
+    return this.userRepository.getUser(id).pipe(
       map((response: ResponseGetUser) => {
         if (response.code === 200) {
           const userDto = new UserDto(response.userData);
@@ -49,5 +54,9 @@ export class UserService implements IUserService {
 
   register(data: UserInput): Observable<ResponseRegister> {
     return this.userRepository.register(data);
+  }
+
+  deleteUser(id: number): Observable<ResponseDeleteUser> {
+    return this.userRepository.deleteUser(id);
   }
 }

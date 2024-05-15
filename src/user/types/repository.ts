@@ -1,15 +1,16 @@
 import { Observable } from 'rxjs';
 import {
-  RequestGetUser,
   RequestLogin,
   RequestRegister,
+  ResponseDeleteUser,
   ResponseGetUser,
   ResponseLogin,
   ResponseRegister,
 } from './grpc';
 
 export interface IUserRepository {
-  getUser(withId: RequestGetUser): Observable<ResponseGetUser>;
+  getUser(id: number): Observable<ResponseGetUser>;
   login(data: RequestLogin): Observable<ResponseLogin>;
   register(data: RequestRegister): Observable<ResponseRegister>;
+  deleteUser(id: number): Observable<ResponseDeleteUser>;
 }

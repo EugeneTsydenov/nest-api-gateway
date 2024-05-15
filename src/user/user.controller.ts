@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Req, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import { BASE_PATH } from '../constants/constants';
 import { Response, Request } from 'express';
@@ -29,6 +29,14 @@ export class UserController {
   register(@Req() request: Request, @Res() response: Response) {
     const userInput: UserInput = request.body;
     this.userService.register(userInput).subscribe((res) => {
+      response.status(res.code).json({ message: res.message });
+    });
+  }
+
+  @Delete('delete')
+  delete(@Req() req: Request, @Res() response: Response) {
+    const { id } = req.body;
+    this.userService.deleteUser(id).subscribe((res) => {
       response.status(res.code).json({ message: res.message });
     });
   }

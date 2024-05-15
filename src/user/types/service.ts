@@ -1,12 +1,18 @@
 import { Observable } from 'rxjs';
 import { UserDto } from '../dto/user.dto';
-import { ResponseGetUser, ResponseLogin, ResponseRegister } from './grpc';
+import {
+  ResponseDeleteUser,
+  ResponseGetUser,
+  ResponseLogin,
+  ResponseRegister,
+} from './grpc';
 import { UserInput } from '../entity/user.entity';
 
 export interface IUserService {
   getUser(id: number): ResponseObservableGetUser;
   login(data: UserInput): ResponseObservableLogin;
   register(data: UserInput): Observable<ResponseRegister>;
+  deleteUser(id: number): Observable<ResponseDeleteUser>;
 }
 
 export type ResponseObservableGetUser = Observable<
