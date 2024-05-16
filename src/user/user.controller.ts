@@ -13,11 +13,11 @@ import { BASE_PATH } from '../constants/constants';
 import { Response, Request } from 'express';
 import { UserInput } from './entity/user.entity';
 
-@Controller(`${BASE_PATH}/user`)
+@Controller(`${BASE_PATH}/users`)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('id/:id')
+  @Get(':id')
   getUser(@Param('id') id: number, @Res() response: Response) {
     this.userService.getUser(id).subscribe((res) => {
       response
@@ -42,7 +42,7 @@ export class UserController {
     });
   }
 
-  @Delete('delete')
+  @Delete(':id')
   delete(@Req() req: Request, @Res() response: Response) {
     const { id } = req.body;
     this.userService.deleteUser(id).subscribe((res) => {
@@ -50,7 +50,7 @@ export class UserController {
     });
   }
 
-  @Put('update')
+  @Put(':id')
   updateUser(@Req() req: Request, @Res() response: Response) {
     const data = req.body;
     this.userService.updateUser(data).subscribe((res) => {
@@ -60,7 +60,7 @@ export class UserController {
     });
   }
 
-  @Put('update/password')
+  @Put(':id/password')
   updatePassword(@Req() req: Request, @Res() response: Response) {
     const data = req.body;
     this.userService.updatePassword(data).subscribe((res) => {
@@ -68,7 +68,7 @@ export class UserController {
     });
   }
 
-  @Get('all')
+  @Get()
   getAllUsers(@Res() response: Response) {
     this.userService.getAllUsers().subscribe((res) => {
       response.status(200).json(res);
