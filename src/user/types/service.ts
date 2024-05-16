@@ -4,6 +4,7 @@ import {
   RequestUpdatePassword,
   RequestUpdateUser,
   ResponseDeleteUser,
+  ResponseGetAllUsers,
   ResponseGetUser,
   ResponseLogin,
   ResponseRegister,
@@ -21,6 +22,7 @@ export interface IUserService {
   updatePassword(
     data: RequestUpdatePassword,
   ): Observable<ResponseUpdatePassword>;
+  getAllUsers(): Observable<{ users: UserDto[] }>;
 }
 
 export type ResponseObservableGetUser = Observable<

@@ -17,7 +17,7 @@ import { UserInput } from './entity/user.entity';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get(':id')
+  @Get('id/:id')
   getUser(@Param('id') id: number, @Res() response: Response) {
     this.userService.getUser(id).subscribe((res) => {
       response
@@ -65,6 +65,13 @@ export class UserController {
     const data = req.body;
     this.userService.updatePassword(data).subscribe((res) => {
       response.status(res.code).json({ message: res.message });
+    });
+  }
+
+  @Get('all')
+  getAllUsers(@Res() response: Response) {
+    this.userService.getAllUsers().subscribe((res) => {
+      response.status(200).json(res);
     });
   }
 }

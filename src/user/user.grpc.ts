@@ -6,6 +6,7 @@ import {
   RequestUpdatePassword,
   RequestUpdateUser,
   ResponseDeleteUser,
+  ResponseGetAllUsers,
   ResponseGetUser,
   ResponseLogin,
   ResponseRegister,
@@ -50,5 +51,9 @@ export class UserGrpc implements OnModuleInit, IUserGrpcClient {
     data: RequestUpdatePassword,
   ): Observable<ResponseUpdatePassword> {
     return this.userGrpcService.updatePassword(data);
+  }
+
+  getAllUsers(): Observable<ResponseGetAllUsers> {
+    return this.userGrpcService.getAllUsers({});
   }
 }

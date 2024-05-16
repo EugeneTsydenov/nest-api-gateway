@@ -10,6 +10,7 @@ service UserService {
   rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
   rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse) {}
   rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse) {}
 }
 
 message GetUserRequest {
@@ -88,4 +89,11 @@ message UpdatePasswordRequest {
 message UpdatePasswordResponse {
   int32 code = 1;
   string message = 2;
+}
+
+message GetAllUsersRequest {
+}
+
+message GetAllUsersResponse {
+  repeated UserData users = 1;
 }

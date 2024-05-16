@@ -86,4 +86,19 @@ export class UserService implements IUserService {
   ): Observable<ResponseUpdatePassword> {
     return this.userRepository.updatePassword(data);
   }
+
+  getAllUsers(): Observable<{ users: UserDto[] }> {
+    return this.userRepository.getAllUsers().pipe(
+      map((response) => {
+        const users = response.users;
+        const convertedUsers: UserDto[] = [];
+        for (const user of users) {
+          convertedUsers.push(new UserDto(user));
+        }
+        return {
+          users: convertedUsers,
+        };
+      }),
+    );
+  }
 }

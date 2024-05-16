@@ -11,6 +11,7 @@ export interface IUserGrpcClient {
   updatePassword(
     data: RequestUpdatePassword,
   ): Observable<ResponseUpdatePassword>;
+  getAllUsers({}): Observable<ResponseGetAllUsers>;
 }
 
 export interface ResponseGetUser {
@@ -80,4 +81,8 @@ export interface RequestUpdatePassword {
 export interface ResponseUpdatePassword {
   code: number;
   message: string;
+}
+
+export interface ResponseGetAllUsers {
+  users: UserEntity[];
 }
