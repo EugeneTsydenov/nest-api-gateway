@@ -1,5 +1,3 @@
-import { UserEntity } from '../entity/user.entity';
-
 export interface Timestamp {
   seconds: Long;
   nanos: number;

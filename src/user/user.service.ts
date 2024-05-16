@@ -8,7 +8,7 @@ import {
   ResponseObservableLogin,
   ResponseObservableUpdateUser,
 } from './types/service';
-import { UserRepository } from './user.repository';
+import { UserGrpc } from './user.grpc';
 import {
   RequestUpdatePassword,
   RequestUpdateUser,
@@ -21,10 +21,10 @@ import {
 
 @Injectable()
 export class UserService implements IUserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: UserGrpc) {}
 
   getUser(id: number): ResponseObservableGetUser {
-    return this.userRepository.getUser(id).pipe(
+    return this.userRepository.getUser({ id }).pipe(
       map((response: ResponseGetUser) => {
         if (response.code === 200) {
           const userDto = new UserDto(response.userData);
@@ -61,7 +61,7 @@ export class UserService implements IUserService {
   }
 
   deleteUser(id: number): Observable<ResponseDeleteUser> {
-    return this.userRepository.deleteUser(id);
+    return this.userRepository.deleteUser({ id });
   }
 
   updateUser(data: RequestUpdateUser): ResponseObservableUpdateUser {

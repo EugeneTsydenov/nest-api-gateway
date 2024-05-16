@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { UserEntity } from '../entity/user.entity';
 import { Long } from './types';
 
-export interface IUserGrpcService {
+export interface IUserGrpcClient {
   getUser(withId: RequestGetUser): Observable<ResponseGetUser>;
   login(data: RequestLogin): Observable<ResponseLogin>;
   register(data: RequestRegister): Observable<ResponseRegister>;

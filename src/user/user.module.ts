@@ -3,11 +3,11 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import * as path from 'node:path';
-import { UserRepository } from './user.repository';
+import { UserGrpc } from './user.grpc';
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, UserRepository],
+  providers: [UserService, UserGrpc],
   imports: [
     ClientsModule.register([
       {

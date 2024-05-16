@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import {
-  IUserGrpcService,
+  IUserGrpcClient,
   RequestLogin,
   RequestRegister,
   RequestUpdatePassword,
@@ -13,22 +13,21 @@ import {
   ResponseUpdateUser,
 } from './types/grpc';
 import { ClientGrpc } from '@nestjs/microservices';
-import { IUserRepository } from './types/repository';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class UserRepository implements OnModuleInit, IUserRepository {
-  private userGrpcService: IUserGrpcService;
+export class UserGrpc implements OnModuleInit, IUserGrpcClient {
+  private userGrpcService: IUserGrpcClient;
 
   constructor(@Inject('USER_PACKAGE') private client: ClientGrpc) {}
 
   onModuleInit() {
     this.userGrpcService =
-      this.client.getService<IUserGrpcService>('UserService');
+      this.client.getService<IUserGrpcClient>('UserService');
   }
 
-  getUser(id: number): Observable<ResponseGetUser> {
-    return this.userGrpcService.getUser({ id });
+  getUser(withId: { id: number }): Observable<ResponseGetUser> {
+    return this.userGrpcService.getUser(withId);
   }
 
   login(data: RequestLogin): Observable<ResponseLogin> {
@@ -39,8 +38,8 @@ export class UserRepository implements OnModuleInit, IUserRepository {
     return this.userGrpcService.register(data);
   }
 
-  deleteUser(id: number): Observable<ResponseDeleteUser> {
-    return this.userGrpcService.deleteUser({ id });
+  deleteUser(withId: { id: number }): Observable<ResponseDeleteUser> {
+    return this.userGrpcService.deleteUser(withId);
   }
 
   updateUser(data: RequestUpdateUser): Observable<ResponseUpdateUser> {
