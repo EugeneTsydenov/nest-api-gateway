@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
 import { UserDto } from './dto/user.dto';
-import { UserInput } from './entity/user.entity';
 import {
   IUserService,
   ResponseObservableGetUser,
-  ResponseObservableLogin,
   ResponseObservableUpdateUser,
 } from './types/service';
 import { UserGrpc } from './user.grpc';
@@ -14,8 +12,6 @@ import {
   RequestUpdateUser,
   ResponseDeleteUser,
   ResponseGetUser,
-  ResponseLogin,
-  ResponseRegister,
   ResponseUpdatePassword,
 } from './types/grpc';
 
@@ -38,26 +34,6 @@ export class UserService implements IUserService {
         return response;
       }),
     );
-  }
-
-  login(data: UserInput): ResponseObservableLogin {
-    return this.userRepository.login(data).pipe(
-      map((response: ResponseLogin) => {
-        if (response.code === 200) {
-          return {
-            message: response.message,
-            code: response.code,
-            id: response.id.low,
-          };
-        }
-
-        return response;
-      }),
-    );
-  }
-
-  register(data: UserInput): Observable<ResponseRegister> {
-    return this.userRepository.register(data);
   }
 
   deleteUser(id: number): Observable<ResponseDeleteUser> {

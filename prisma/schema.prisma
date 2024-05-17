@@ -18,7 +18,7 @@ model Token {
     jti        String
     user_id    BigInt
     is_revoked Boolean
-    createdAt  DateTime @default(now()) @db.Timestamptz(6)
+    created_at  DateTime @default(now()) @db.Timestamptz(6)
 
     @@map(name: "tokens")
 }
